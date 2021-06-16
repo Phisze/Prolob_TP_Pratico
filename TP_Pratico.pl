@@ -21,6 +21,7 @@ game(19,28,30,34,40,51).
 game(19,28,30,34,40,51).
 
 
+
 % O número X já foi sorteado alguma vez?
 
 
