@@ -66,9 +66,6 @@ element_count(X,N,L) :- aggregate(count,member(X,L),N).
 max_element_count(X,N,L) :- aggregate(max(N1,X1),element_count(X1,N1,L),max(N,X)).
 game_sort_Q(R1, R2) :- findall([X, Y, Z, W, Q, E], game(X, Y, Z, W, Q, E), List), flatten(List, L), max_element_count(R1, R2, L).
 
-% Front_end
 % Leitura de dados
 % Chamar prolog
 % Inserir diminamicamente os dados assert
-% 1
-% 3
