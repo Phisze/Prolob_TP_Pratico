@@ -3,6 +3,7 @@ import pandas as pd
 import re
 import sys
 
+
 class prologData:
     prolog = Prolog()
 
