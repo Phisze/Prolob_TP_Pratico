@@ -15,8 +15,6 @@ class prologData:
         for index, row in nums.iterrows():
             self.prolog.assertz("game(" + str(row['X1']) + "," + str(row['X2']) + "," + str(row['X3']) + "," +
                            str(row['X4']) + "," + str(row['X5']) + "," + str(row['X6']) + ")")
-        self.prolog.assertz("game(" + str(nums['X1'][0]) + "," + str(nums['X2'][0]) + "," + str(nums['X3'][0]) + "," +
-                       str(nums['X4'][0]) + "," + str(nums['X5'][0]) + "," + str(nums['X6'][0]) + ")")
 
         self.prolog.consult(namePl)
 
