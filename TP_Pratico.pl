@@ -1,27 +1,3 @@
-game(12,14,17,18,19,22).
-game(2, 6 ,44,46,53,58).
-game(12,13,25,37,39,41).
-game(23,24,26,44,49,60).
-game(3,19,25,44,46,57).
-game(4,15,30,36,39,48).
-game(7,31,37,42,44,56).
-game(4,9,17,19,37,60).
-game(4,7,13,25,36,58).
-game(5,23,29,34,53,60).
-game(4,27,33,35,38,41).
-game(1,17,28,37,44,50).
-game(20,33,42,44,51,56).
-game(6,14,24,34,39,58).
-game(3,20,22,32,35,50).
-game(14,21,22,29,35,46).
-game(10,15,21,24,29,45).
-game(31,32,39,42,43,51).
-game(5,9,11,16,43,57).
-game(19,28,30,34,40,51).
-game(19,28,30,34,40,51).
-
-
-
 % O número X já foi sorteado alguma vez?
 
 
@@ -31,9 +7,9 @@ game(19,28,30,34,40,51).
 %então criei uma lista que contém todos os elementos e subtrai a lista gerada por uma lista com todos elementos, se a subtração
 %retornar uma lista vazia é false, se não a lista dos não encontrados é printada. O is_empty verifico se qualquer coisa faz parte
 %da lista caso faça é true e para a execução, se não false.
-%Exemplo: n_sort. False or os não numeros nunca contemplados
-never_sort :- findall([X, Y, Z, W, Q, E], game(X, Y, Z, W, Q, E), List), flatten(List, L), sort(L, LS), numlist(1, 60, Lall), 
-                subtract(Lall, LS, Lfinal), is_empty(Lfinal), write(Lfinal).
+%Exemplo: never_sort. Lfinal = Lista com os não sorteados.
+never_sort(Lfinal) :- findall([X, Y, Z, W, Q, E], game(X, Y, Z, W, Q, E), List), flatten(List, L), sort(L, LS), numlist(1, 60, Lall), 
+                subtract(Lall, LS, Lfinal), is_empty(Lfinal).
 is_empty(List):- member(_,List), !.
 
 % O jogo (X1,X2,X3,X4,X5,X6) já foi contemplado alguma vez?
@@ -45,9 +21,8 @@ is_empty(List):- member(_,List), !.
 % Uso a função findall para printar todos os fatos e após feito isso chamo a função duplicate que verica se há 
 %algum jogo duplicado na lista de fatos. Ele usa um para ir quebrando a lista em pedaços e depois vai verificando se enconta
 %um elemento igual na duas partes da lista atrás da função member quando encontra printa. 
-%Exemplo: game_sort_N. jogos que estão contemplados mais de uma vez
-game_sort_N :- findall((X, Y, Z, W, Q, E), game(X, Y, Z, W, Q, E), L), duplicate(L).
-duplicate(List):- append(X,Y,List), member(M,X), member(M,Y), write(M).
+%Exemplo: game_sort_N(X, N). X = Jogo contemplado mais de 1 vez. N = Numero de vezes
+game_sort_N(X, N) :- findall((X, Y, Z, W, Q, E), game(X, Y, Z, W, Q, E), L), aggregate(count,member(X,L),N), N > 1.
 
 % Um número X foi sorteado quantas vezes?
 % Uso a função findall para encontrar quantas vezes um numero foi sorteado em game e 
@@ -65,7 +40,3 @@ qtde_X(X, N) :- findall(X, (game(X, _, _, _, _, _); game(_, X, _, _, _, _); game
 element_count(X,N,L) :- aggregate(count,member(X,L),N).
 max_element_count(X,N,L) :- aggregate(max(N1,X1),element_count(X1,N1,L),max(N,X)).
 game_sort_Q(R1, R2) :- findall([X, Y, Z, W, Q, E], game(X, Y, Z, W, Q, E), List), flatten(List, L), max_element_count(R1, R2, L).
-
-% Leitura de dados
-% Chamar prolog
-% Inserir diminamicamente os dados assert
