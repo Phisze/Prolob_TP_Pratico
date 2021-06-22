@@ -7,8 +7,8 @@
 %então criei uma lista que contém todos os elementos e subtrai a lista gerada por uma lista com todos elementos, se a subtração
 %retornar uma lista vazia é false, se não a lista dos não encontrados é printada. O is_empty verifico se qualquer coisa faz parte
 %da lista caso faça é true e para a execução, se não false.
-%Exemplo: never_sort. Lfinal = Lista com os não sorteados.
-never_sort(Lfinal) :- findall([X, Y, Z, W, Q, E], game(X, Y, Z, W, Q, E), List), flatten(List, L), sort(L, LS), numlist(1, 60, Lall), 
+%Exemplo: never_sort(X). Lfinal = Lista com os não sorteados.
+never_sort(Lfinal) :- findall([X, Y, Z, W, Q, E], game([X, Y, Z, W, Q, E], _), List), flatten(List, L), sort(L, LS), numlist(1, 60, Lall), 
                 subtract(Lall, LS, Lfinal), is_empty(Lfinal).
 is_empty(List):- member(_,List), !.
 
@@ -21,15 +21,16 @@ is_empty(List):- member(_,List), !.
 % Uso a função findall para printar todos os fatos e após feito isso chamo a função duplicate que verica se há 
 %algum jogo duplicado na lista de fatos. Ele usa um para ir quebrando a lista em pedaços e depois vai verificando se enconta
 %um elemento igual na duas partes da lista atrás da função member quando encontra printa. 
-%Exemplo: game_sort_N(X, N). X = Jogo contemplado mais de 1 vez. N = Numero de vezes
-game_sort_N(X, N) :- findall((X, Y, Z, W, Q, E), game(X, Y, Z, W, Q, E), L), aggregate(count,member(X,L),N), N > 1.
+%Exemplo: game_sort_N(V, N). V = Jogo contemplado mais de 1 vez. N = Numero de vezes
+game_sort_N(V, N) :- findall([X, Y, Z, W, Q, E, R], game([X, Y, Z, W, Q, E], R), L), aggregate(count,member(M,L),N), N > 1,
+last(M, Last), Last > 0, delete(M, Last, V).
 
 % Um número X foi sorteado quantas vezes?
 % Uso a função findall para encontrar quantas vezes um numero foi sorteado em game e 
 %após isso uso a função length para verificar o tamanho do array de resposta
 %Exemplo: qtde_X(12, N). N = numero de vezes sorteado
-qtde_X(X, N) :- findall(X, (game(X, _, _, _, _, _); game(_, X, _, _, _, _); game(_, _, X, _, _, _); 
-        game(_, _, _, X, _, _); game(_, _, _, _, X, _); game(_, _, _, _, _, X)), L), length(L,N).
+qtde_X(X, N) :- findall(X, (game([X, _, _, _, _, _], _); game([_, X, _, _, _, _], _); game([_, _, X, _, _, _], _); 
+        game([_, _, _, X, _, _], _); game([_, _, _, _, X, _], _); game([_, _, _, _, _, X], _)), L), length(L,N).
 
 % Qual o número foi mais sorteado?
 % Uso o findall para gerar uma lista de listas de todos os elementos existentes nos fatos e flatten para transformar essa lista em 
@@ -39,4 +40,4 @@ qtde_X(X, N) :- findall(X, (game(X, _, _, _, _, _); game(_, X, _, _, _, _); game
 %game_sort_Q(N, X). N = Numero mais sorteado, X = Vezes que foi sorteado.
 element_count(X,N,L) :- aggregate(count,member(X,L),N).
 max_element_count(X,N,L) :- aggregate(max(N1,X1),element_count(X1,N1,L),max(N,X)).
-game_sort_Q(R1, R2) :- findall([X, Y, Z, W, Q, E], game(X, Y, Z, W, Q, E), List), flatten(List, L), max_element_count(R1, R2, L).
+game_sort_Q(R1, R2) :- findall([X, Y, Z, W, Q, E], game([X, Y, Z, W, Q, E], _), List), flatten(List, L), max_element_count(R1, R2, L).
