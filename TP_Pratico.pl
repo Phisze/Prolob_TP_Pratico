@@ -1,4 +1,9 @@
 % O número X já foi sorteado alguma vez?
+% Primeiramente, cria-se uma lista de listas com todos elementos, utilizando-se "findall"
+% O "flatten" foi utilizado para se transformar a lista de listas em uma única lista total
+% Após isto, utiliza-se a cláusula "member" para ver se um número qualquer já foi sorteado
+% Coloca-se o comando de stop para, quando o Prolog achar o número dos jogos apresentados, ele parar a execução
+has_number_sorted(A) :- findall([X, Y, Z, W, Q, E], game([X, Y, Z, W, Q, E], _), List), flatten(List, L) , (member(A, L) , !).
 
 
 
@@ -13,6 +18,12 @@ never_sort(Lfinal) :- findall([X, Y, Z, W, Q, E], game([X, Y, Z, W, Q, E], _), L
 is_empty(List):- member(_,List), !.
 
 % O jogo (X1,X2,X3,X4,X5,X6) já foi contemplado alguma vez?
+% Primeiramente cria-se uma lista de lista com todos os elementos utilizando-se o findall.
+% Então, usa-se a cláusula "member" para verificar se os 6 números já foram escolhidos em alguns dos jogos
+% Caso sejam, verifica também se ele já foi contemplado. Para isto, verifica-se se o número indicando suas contemplações é mais que zero
+% Se for, o jogo já foi contemplado, caso contrário, ele não foi.
+has_jogo_contemplado(X1, X2, X3, X4, X5, X6) :- findall([[X, Y, Z, W, Q, E], N1], game([X, Y, Z, W, Q, E], N1), List) , write(List) , 
+                                                (member([[X1, X2, X3, X4, X5, X6], N2], List) , N2 > 0 , !).
 
 
 

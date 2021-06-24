@@ -20,6 +20,18 @@ class prologData:
                           str(nums[5][1]) + "," + str(nums[6][1]) + "," + str(nums[7][1]) + "]," + str(nums[8][1]) + ")")
         self.prolog.consult(namePl)
 
+    def has_number_sorted(self, A: int):
+        t = list()
+        for res in self.prolog.query("has_number_sorted(" + str(A) + ")."):
+            t.append(res)
+        return t
+    
+    def has_jogo_contemplado(self, X1: int, X2: int, X3: int, X4: int, X5: int, X6: int):
+        t = list()
+        for res in self.prolog.query("has_jogo_contemplado(" + str(X1) + "," + str(X2) + "," + str(X3) + "," + str(X4) + "," + str(X5) + "," + str(X6) + ")"):
+            t.append(res)
+        return t
+
     def game_sort_Q(self):
         t = list()
         for res in self.prolog.query("game_sort_Q(N, X)."):
