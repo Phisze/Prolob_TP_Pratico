@@ -16,8 +16,6 @@ class prologData:
         for index, row in nums.iterrows():
             self.prolog.assertz("game([" + str(row[2]) + "," + str(row[3]) + "," + str(row[4]) + "," +
                            str(row[5]) + "," + str(row[6]) + "," + str(row[7]) + "]," + str(row[8]) + ")")
-        self.prolog.assertz("game([" + str(nums[2][1]) + "," + str(nums[3][1]) + "," + str(nums[4][1]) + "," +
-                          str(nums[5][1]) + "," + str(nums[6][1]) + "," + str(nums[7][1]) + "]," + str(nums[8][1]) + ")")
         self.prolog.consult(namePl)
 
     def has_number_sorted(self, A: int):
@@ -34,24 +32,28 @@ class prologData:
 
     def game_sort_Q(self):
         t = list()
+        #game_sort_Q(N, X).
         for res in self.prolog.query("game_sort_Q(N, X)."):
             t.append(res)
         return t
 
     def qtde_X(self, num):
         t = list()
+        #qtde_X(12, N).
         for res in self.prolog.query("qtde_X("+str(num)+", N)."):
             t.append(res)
         return t
 
     def never_sort(self):
         t = list()
+        #never_sort(X).
         for res in self.prolog.query("never_sort(X)."):
             t.append(res)
         return t
 
     def game_sort_N(self):
         t = list()
+        #game_sort_N(V, N).
         for res in self.prolog.query("game_sort_N(X, N)."):
             t.append(res)
         return t
@@ -72,8 +74,6 @@ if len(sys.argv) == 3:
         exit(1)
 
     p = prologData(csv, pl)
-    print(p.game_sort_N())
-    print(p.has_number_sorted(72))
 
     num = 0
     mensagem = """### -- SISTEMA PROLOG DE CONSULTA DE MEGA SENA -- ###"
@@ -159,3 +159,4 @@ if len(sys.argv) == 3:
 
 else:
     print('A entrada deve seguir o seguinte padrão [".py .csv .pl"]')
+

@@ -13,7 +13,7 @@ has_number_sorted(A) :- findall([X, Y, Z, W, Q, E], game([X, Y, Z, W, Q, E], _),
 %retornar uma lista vazia é false, se não a lista dos não encontrados é printada. O is_empty verifico se qualquer coisa faz parte
 %da lista caso faça é true e para a execução, se não false.
 %Exemplo: never_sort(X). Lfinal = Lista com os não sorteados.
-never_sort(Lfinal) :- findall([X, Y, Z, W, Q, E], game([X, Y, Z, W, Q, E], _), List), flatten(List, L), sort(L, LS), numlist(1, 60, Lall),
+never_sort(Lfinal) :- findall([X, Y, Z, W, Q, E], game([X, Y, Z, W, Q, E], _), List), flatten(List, L), sort(L, LS), numlist(1, 60, Lall), 
                 subtract(Lall, LS, Lfinal), is_empty(Lfinal).
 is_empty(List):- member(_,List), !.
 
@@ -22,7 +22,7 @@ is_empty(List):- member(_,List), !.
 % Então, usa-se a cláusula "member" para verificar se os 6 números já foram escolhidos em alguns dos jogos
 % Caso sejam, verifica também se ele já foi contemplado. Para isto, verifica-se se o número indicando suas contemplações é mais que zero
 % Se for, o jogo já foi contemplado, caso contrário, ele não foi.
-has_jogo_contemplado(X1, X2, X3, X4, X5, X6) :- findall([[X, Y, Z, W, Q, E], N1], game([X, Y, Z, W, Q, E], N1), List) ,
+has_jogo_contemplado(X1, X2, X3, X4, X5, X6) :- findall([[X, Y, Z, W, Q, E], N1], game([X, Y, Z, W, Q, E], N1), List) , write(List) , 
                                                 (member([[X1, X2, X3, X4, X5, X6], N2], List) , N2 > 0 , !).
 
 
