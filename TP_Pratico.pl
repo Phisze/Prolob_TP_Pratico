@@ -13,7 +13,7 @@ has_number_sorted(A) :- findall([X, Y, Z, W, Q, E], game([X, Y, Z, W, Q, E], _),
 %retornar uma lista vazia é false, se não a lista dos não encontrados é printada. O is_empty verifico se qualquer coisa faz parte
 %da lista caso faça é true e para a execução, se não false.
 %Exemplo: never_sort(X). Lfinal = Lista com os não sorteados.
-never_sort(Lfinal) :- findall([X, Y, Z, W, Q, E], game([X, Y, Z, W, Q, E], _), List), flatten(List, L), sort(L, LS), numlist(1, 60, Lall), 
+never_sort(Lfinal) :- findall([X, Y, Z, W, Q, E], game([X, Y, Z, W, Q, E], _), List), flatten(List, L), sort(L, LS), numlist(1, 60, Lall),
                 subtract(Lall, LS, Lfinal), is_empty(Lfinal).
 is_empty(List):- member(_,List), !.
 

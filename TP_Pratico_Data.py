@@ -105,12 +105,11 @@ if len(sys.argv) == 3:
 
         # 2 - Verificar qual número nunca foi sorteado TODO = corrigir essa parte
         elif num == 2:
-            a = int(input("Digite um número para verificar se ele nunca foi sorteado: "))
             res_list = p.never_sort()
             if len(res_list) == 0:
-                print("O número digitado já foi sorteado.")
+                print("Todos os números já foram sorteados.")
             else:
-                print(res_list)
+                print("Os números: " + str(res_list[0]["X"]) + " nunca foram sorteados.")
 
         # Verificar se um jogo(X1,X2,X3,X4,X5,X6) já foi contemplado
         elif num == 3:
