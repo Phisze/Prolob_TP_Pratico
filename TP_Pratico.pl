@@ -33,8 +33,9 @@ has_jogo_contemplado(X1, X2, X3, X4, X5, X6) :- findall([[X, Y, Z, W, Q, E], N1]
 %algum jogo duplicado na lista de fatos. Ele usa um para ir quebrando a lista em pedaços e depois vai verificando se enconta
 %um elemento igual na duas partes da lista atrás da função member quando encontra printa. 
 %Exemplo: game_sort_N(V, N). V = Jogo contemplado mais de 1 vez. N = Numero de vezes
-game_sort_N(V, N) :- findall([X, Y, Z, W, Q, E, R], game([X, Y, Z, W, Q, E], R), L), aggregate(count,member(M,L),N), N > 1,
-last(M, Last), Last > 0, delete(M, Last, V).
+game_sort_N(M, N):- findall([X, Y, Z, W, Q, E], (game([X, Y, Z, W, Q, E], R), R > 0 ), L), aggregate(count,member(M,L),N), N > 1.
+
+
 
 % Um número X foi sorteado quantas vezes?
 % Uso a função findall para encontrar quantas vezes um numero foi sorteado em game e 
