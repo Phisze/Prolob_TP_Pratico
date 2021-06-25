@@ -22,7 +22,7 @@ is_empty(List):- member(_,List), !.
 % Então, usa-se a cláusula "member" para verificar se os 6 números já foram escolhidos em alguns dos jogos
 % Caso sejam, verifica também se ele já foi contemplado. Para isto, verifica-se se o número indicando suas contemplações é mais que zero
 % Se for, o jogo já foi contemplado, caso contrário, ele não foi.
-has_jogo_contemplado(X1, X2, X3, X4, X5, X6) :- findall([[X, Y, Z, W, Q, E], N1], game([X, Y, Z, W, Q, E], N1), List) , write(List) , 
+has_jogo_contemplado(X1, X2, X3, X4, X5, X6) :- findall([[X, Y, Z, W, Q, E], N1], game([X, Y, Z, W, Q, E], N1), List) ,
                                                 (member([[X1, X2, X3, X4, X5, X6], N2], List) , N2 > 0 , !).
 
 
